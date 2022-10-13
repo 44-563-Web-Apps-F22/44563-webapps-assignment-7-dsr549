@@ -78,6 +78,75 @@
                 
             </div>
     </div>
+    <script>
+        let ids = [];
+        let chestCount = 0;
+        let score = 0;
+        let lastCheck = 12;
+        let treasureLocation = 18;
+        //let treasureLocation = Math.round(Math.random() * (24));//(max-min)-min i.e. (24-0)+0
+
+        for (var i = 0; i < 25; i++) {
+            ids.push("image" + i)
+        }
+        function check(position) {
+            let imageID = ids[position];
+            if (position == treasureLocation) {
+                document.getElementById(imageID).src = "dsr2.jpg";
+            } else {
+                document.getElementById(imageID).src = "dsr1.jpg";
+            }
+            chestCount++;
+            score++;
+            document.getElementById("chests").innerHTML = "Number of chests is " + chestCount;
+            document.getElementById("score").innerHTML = "Score is " + score;
+            lastCheck=position;
+            
+
+            
+        }
+        function help(){
+            col_num=lastCheck%5;
+            row_num=~~(lastCheck/5);
+            tre_row=~~(treasureLocation/5);
+            tre_col=treasureLocation%5;
+
+            score=score+2;
+            document.getElementById("score").innerHTML = "Score is " + score;
+            if((col_num!=tre_col && row_num!=tre_row) || lastCheck==treasureLocation){
+                document.getElementById("help").innerHTML ="sorry, no help available"
+            }
+            else if(col_num==tre_col){
+                if(tre_row>row_num){
+                    document.getElementById("help").innerHTML ="down"
+                }
+                else{
+                    document.getElementById("help").innerHTML ="Up"
+                }                                      
+            }
+            else if(row_num==tre_row){
+                if(tre_col>col_num){
+                    document.getElementById("help").innerHTML ="Right"
+                }
+                else{
+                    document.getElementById("help").innerHTML ="Left"
+                }     
+                  }           
+        }
+        function reset() {
+        chestCount = 0;
+        score = 0
+        treasureLocation = Math.round(Math.random() * (24));//(max-min)-min i.e. (23-0)+0
+        document.getElementById("chests").innerHTML = "Number of chests is " + chestCount;;
+        document.getElementById("score").innerHTML = "Score is "+score;                        
+
+    }
+
+
+
+
+
+    </script>
 
 
 </body>
